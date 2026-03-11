@@ -34,7 +34,7 @@ export default function CarCard({ car }: CarCardProps) {
       </p>
 
       <p className={styles.info}>
-        {car.type} | {car.mileage} km
+        {car.type} | {car.mileage.toLocaleString()} km
       </p>
 
       <Link href={`/cars/${car.id}`} className={styles.buttonCard}>

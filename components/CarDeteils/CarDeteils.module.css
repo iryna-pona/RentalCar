@@ -1,0 +1,24 @@
+.card {
+    border: 1px solid #ddd;
+    padding: 16px;
+    border-radius: 8px;
+    margin-bottom: 16px;
+}
+
+.list {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 16px 0;
+}
+
+.list li {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 4px;
+}
+
+.icon {
+    width: 16px;
+    height: 16px;
+}

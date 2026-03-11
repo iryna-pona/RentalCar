@@ -1,22 +1,33 @@
-import Image from "next/image";
-import { fetchCarById } from "@/app/api/cars";
-import RentForm from "@/components/RentForm/RentForm";
-import CarDeteils from "@/components/CarDeteils/CarDeteils";
+"use client";
 
-interface CarPageProps {
-  params: {
-    id: string;
+import { useEffect, useState } from "react";
+import { fetchCars } from "@/app/api/cars";
+import { Car } from "@/types/car";
+import { FetchCarsParams } from "@/app/api/cars";
+import Filters from "@/components/Filters/Filters";
+import CarList from "@/components/CarList/CarList";
+
+export default function CatalogPage() {
+  const [cars, setCars] = useState<Car[]>([]);
+
+  useEffect(() => {
+    const loadInitialCars = async () => {
+      const data = await fetchCars();
+      setCars(data.cars);
+    };
+
+    loadInitialCars();
+  }, []);
+
+  const handleSearch = async (filters: FetchCarsParams) => {
+    const data = await fetchCars(filters);
+    setCars(data.cars);
   };
-}
-
-export default async function CarPage({ params }: CarPageProps) {
-  const car = await fetchCarById(params.id);
 
   return (
-    <div>
-        <Image src={car.img} alt={car.model} width={640} height={512} className={styles.img} />
-        <RentForm />
-        <CarDeteils />  
-    </div>
+    <>
+      <Filters onSearch={handleSearch} />
+      <CarList cars={cars} />
+    </>
   );
 }
