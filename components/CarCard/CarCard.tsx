@@ -52,10 +52,10 @@ export default function CarCard({ car }: CarCardProps) {
           <Image
             src={
               isFavorite
-                ? "/icons/favorites/heart-filled.svg"
-                : "/icons/favorites/heart-empty.svg"
+                ? "/favorites/heart-filled.svg"
+                : "/favorites/heart-empty.svg"
             }
-            alt={isFavorite ? "В обраному" : "Не в обраному"}
+            alt={isFavorite ? "To favorites" : "Not to favorites"}
             width={24}
             height={24}
           />

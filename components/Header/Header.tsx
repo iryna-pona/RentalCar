@@ -7,7 +7,7 @@ import styles from "./Header.module.css";
 
 export default function Header() {
   const pathname = usePathname();
-  const logoLetters = ["R","e","n","t","a","l","C","a","r"];
+  const logoLetters = ["R","e","n","t","a","l","C","a2","r2"];
 
   return (
     <header className={styles.header}>
@@ -15,7 +15,7 @@ export default function Header() {
         {logoLetters.map((letter) => (
           <Image
             key={letter}
-            src={`/icons/logo/${letter}.svg`}
+            src={`/logo/${letter}.svg`}
             alt={letter}
             width={24}
             height={24}
