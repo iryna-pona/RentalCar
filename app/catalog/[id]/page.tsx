@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { fetchCarById } from "@/app/api/cars";
 import RentForm from "@/components/RentForm/RentForm";
-import CarDeteils from "@/components/CarDeteils/CarDeteils";
+import CarDetails from "@/components/CarDetails/CarDetails";
 
 interface CarPageProps {
   params: {
@@ -18,7 +18,7 @@ export default async function CarPage({ params }: CarPageProps) {
         <div>
           <Image src={car.img} alt={car.model} width={640} height={512} />
           <RentForm />
-          <CarDeteils car={car} />  
+          <CarDetails car={car} />  
         </div>
       </section>
     );

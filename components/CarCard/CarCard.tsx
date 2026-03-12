@@ -37,7 +37,7 @@ export default function CarCard({ car }: CarCardProps) {
         {car.type} | {car.mileage.toLocaleString()} km
       </p>
 
-      <Link href={`/cars/${car.id}`} className={styles.buttonCard}>
+      <Link href={`/catalog/${car.id}`} className={styles.buttonCard}>
         Read more
       </Link>
     </div>

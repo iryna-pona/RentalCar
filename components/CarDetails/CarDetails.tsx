@@ -9,7 +9,7 @@ const Icon = () => (
   <span className={styles.icon}>✔️</span> // або свій SVG/спрайт
 );
 
-export default function CarDeteils({ car }: CarCardProps) {
+export default function CarDetails({ car }: CarCardProps) {
     return (
         <div className={styles.carDeteils}>
             <h2>{car.brand} {car.model}, {car.year}</h2>
