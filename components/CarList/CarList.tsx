@@ -5,10 +5,9 @@ import { RefObject } from "react";
 interface Props {
   cars: Car[];
   firstNewCardRef: RefObject<HTMLDivElement | null>;
-  prevCarsCount: number;
 }
 
-export default function CarList({ cars, firstNewCardRef, prevCarsCount }: Props) {
+export default function CarList({ cars, firstNewCardRef }: Props) {
   if (!cars.length) {
     return <p>No cars found</p>;
   }
@@ -18,7 +17,7 @@ export default function CarList({ cars, firstNewCardRef, prevCarsCount }: Props)
       {cars.map((car, index) => (
         <div
           key={car.id}
-          ref={index === prevCarsCount ? firstNewCardRef : null}
+          ref={index === cars.length - 1 ? firstNewCardRef : null}
         >
           <CarCard car={car} />
         </div>

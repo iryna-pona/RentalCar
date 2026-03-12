@@ -1,89 +1,48 @@
 "use client";
 
-import { useEffect, useState, useRef } from "react";
-import { fetchCars, FetchCarsParams } from "@/app/api/cars";
-import { Car } from "@/types/car";
+import { useEffect, useRef } from "react";
+import { useCarsStore } from "@/store/useCarsStore";
+import { FetchCarsParams } from "@/app/api/cars";
 import Filters from "@/components/Filters/Filters";
 import CarList from "@/components/CarList/CarList";
 
-const PER_PAGE = 12;
-
 export default function CatalogPage() {
-  const [cars, setCars] = useState<Car[]>([]);
-  const [page, setPage] = useState(1);
-  const [totalPages, setTotalPages] = useState(0);
-  const [filters, setFilters] = useState<FetchCarsParams>({});
-  const [prevCarsCount, setPrevCarsCount] = useState(0);
+  const cars = useCarsStore((state) => state.cars);
+  const page = useCarsStore((state) => state.page);
+  const totalPages = useCarsStore((state) => state.totalPages);
+  const filters = useCarsStore((state) => state.filters);
+  const setFilters = useCarsStore((state) => state.setFilters);
+  const loadCars = useCarsStore((state) => state.loadCars);
+  const loadFavorites = useCarsStore((state) => state.loadFavorites);
 
   const firstNewCardRef = useRef<HTMLDivElement | null>(null);
-
-  const loadCars = async (
-    pageToLoad: number,
-    currentFilters: FetchCarsParams
-  ) => {
-    const data = await fetchCars({
-      ...currentFilters,
-      page: pageToLoad,
-      limit: PER_PAGE,
-    });
-
-    if (pageToLoad === 1) {
-      setCars(data.cars);
-      setPrevCarsCount(0);
-    } else {
-      setPrevCarsCount(cars.length);
-      setCars((prev) => [...prev, ...data.cars]);
-    }
-
-    setPage(data.page);
-    setTotalPages(data.totalPages);
-  };
+  const prevCarsCountRef = useRef(0);
 
   useEffect(() => {
-    const fetchInitialCars = async () => {
-      await loadCars(1, filters);
-    };
-  
-    fetchInitialCars();
-  }, [filters]);
-
-  useEffect(() => {
-    if (cars.length > prevCarsCount && firstNewCardRef.current) {
-      firstNewCardRef.current.scrollIntoView({
+    if (cars.length > prevCarsCountRef.current) {
+      firstNewCardRef.current?.scrollIntoView({
         behavior: "smooth",
         block: "start",
       });
     }
-  }, [cars, prevCarsCount]);
 
-  const handleSearch = (newFilters: FetchCarsParams) => {
-    setCars([]);
-    setPage(1);
-    setPrevCarsCount(0);
-    setTotalPages(0);
-    setFilters(newFilters);
-  };
+    prevCarsCountRef.current = cars.length;
+  }, [cars]);
 
-  const handleLoadMore = async () => {
-    setPrevCarsCount(cars.length);
-    await loadCars(page + 1, filters);
-  };
+  useEffect(() => {
+    loadFavorites();
+    loadCars(1);
+  }, [filters, loadCars, loadFavorites]);
 
-  const showLoadMore = cars.length >= PER_PAGE && page < totalPages;
+  const handleSearch = (newFilters: FetchCarsParams) => setFilters(newFilters);
+  const handleLoadMore = () => loadCars(page + 1);
+  const showLoadMore = cars.length && page < totalPages;
 
   return (
     <>
       <Filters onSearch={handleSearch} />
-
-      <CarList
-        cars={cars}
-        firstNewCardRef={firstNewCardRef}
-        prevCarsCount={prevCarsCount}
-      />
-
-      {showLoadMore && (
-        <button onClick={handleLoadMore}>Load more</button>
-      )}
+      <CarList cars={cars} firstNewCardRef={firstNewCardRef} />
+      {showLoadMore && <button onClick={handleLoadMore}>Load more</button>}
     </>
   );
 }
