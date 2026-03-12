@@ -1,7 +1,7 @@
 import { Car } from "@/types/car";
-import styles from "./CarDeteils.module.css";
+import styles from "./CarDetails.module.css";
 
-interface CarCardProps {
+interface CarDetailsProps {
   car: Car;
 }
 
@@ -9,13 +9,13 @@ const Icon = () => (
   <span className={styles.icon}>✔️</span> // або свій SVG/спрайт
 );
 
-export default function CarDetails({ car }: CarCardProps) {
+export default function CarDetails({ car }: CarDetailsProps) {
     return (
         <div className={styles.carDeteils}>
             <h2>{car.brand} {car.model}, {car.year}</h2>
             <p>id: {car.id}</p>
             <p>{car.address}</p>
-            <p>Mileage: {car.mileage}km</p>
+            <p>Mileage: {car.mileage.toLocaleString()} km</p>
             <p>${car.rentalPrice}</p>
             <p>{car.description}</p>
             

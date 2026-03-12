@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { fetchBrands } from "@/app/api/cars";
 
 interface BrandFilterProps {
-  onChange: (brand: string) => void;
+  onChange: (filters: { brand?: string }) => void;
 }
 
 export default function BrandFilter({ onChange }: BrandFilterProps) {
@@ -19,10 +19,10 @@ export default function BrandFilter({ onChange }: BrandFilterProps) {
   }, []);
 
   const handleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    const value = event.target.value;
-    setSelectedBrand(value); // оновлюємо вибір
-    onChange(value); // повідомляємо CatalogPage
-  };
+  const value = event.target.value;
+  setSelectedBrand(value);
+  onChange({ brand: value });
+};
 
   return (
     <select value={selectedBrand} onChange={handleChange}>

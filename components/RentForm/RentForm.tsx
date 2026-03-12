@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import { Formik, Form, Field, ErrorMessage, FormikHelpers } from "formik";
 import * as Yup from "yup";
 import styles from "./RentForm.module.css";
@@ -29,13 +30,23 @@ const RentFormSchema = Yup.object().shape({
 });
 
 export default function RentForm() {
+  const [successMessage, setSuccessMessage] = useState("");
+
   const handleSubmit = (
     values: RentFormValues,
-    { resetForm }: FormikHelpers<RentFormValues>
-    ) => {
-      console.log(values);
+    { resetForm, setSubmitting }: FormikHelpers<RentFormValues>
+  ) => {
+    setSubmitting(true);
+
+    setTimeout(() => {
+      console.log("Booking submitted:", values);
       resetForm();
-    };
+      setSubmitting(false);
+      setSuccessMessage("Booking submitted successfully!");
+
+      setTimeout(() => setSuccessMessage(""), 3000);
+    }, 1000);
+  };
     return (
         <div>
             <h2>Book your car now</h2>
@@ -53,7 +64,10 @@ export default function RentForm() {
                         type="submit"
                     >Send</button>
                 </Form>
-            </Formik>           
+            </Formik>
+            {successMessage && (
+              <div className={styles.successMessage}>{successMessage}</div>
+            )}
         </div>
     )
 }

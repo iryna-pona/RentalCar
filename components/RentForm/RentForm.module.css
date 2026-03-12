@@ -1,0 +1,66 @@
+/* Контейнер форми */
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    max-width: 400px;
+    margin-top: 16px;
+}
+
+/* Поля вводу */
+.form input,
+.form textarea {
+    padding: 8px 10px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 14px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* Фокус на поле */
+.form input:focus,
+.form textarea:focus {
+    border-color: #0070f3;
+    outline: none;
+}
+
+/* Повідомлення про помилку */
+.error {
+    color: #ff4d4f;
+    font-size: 13px;
+    margin-top: -6px;
+    margin-bottom: 6px;
+}
+
+/* Кнопка відправки */
+.buttonRent {
+    padding: 10px 20px;
+    background-color: #0070f3;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.2s;
+}
+
+.buttonRent:hover {
+    background-color: #005bb5;
+}
+
+.buttonRent:disabled {
+    background-color: #999;
+    cursor: not-allowed;
+}
+
+/* Повідомлення про успішну відправку */
+.successMessage {
+    margin-top: 12px;
+    padding: 10px 15px;
+    background-color: #4caf50;
+    color: white;
+    border-radius: 5px;
+    font-weight: 500;
+    text-align: center;
+}

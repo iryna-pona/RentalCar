@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 interface MileageFilterProps {
-  onChange: (min?: string, max?: string) => void;
+  onChange: (filters: { minMileage?: string; maxMileage?: string }) => void;
 }
 
 export default function MileageFilter({ onChange }: MileageFilterProps) {
@@ -17,13 +17,13 @@ export default function MileageFilter({ onChange }: MileageFilterProps) {
   const handleMinChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const numericValue = e.target.value.replace(/\D/g, "");
     setMinMileage(numericValue);
-    onChange(numericValue, maxMileage);
+    onChange({ minMileage: numericValue, maxMileage });
   };
 
   const handleMaxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const numericValue = e.target.value.replace(/\D/g, "");
     setMaxMileage(numericValue);
-    onChange(minMileage, numericValue);
+    onChange({ minMileage, maxMileage: numericValue });
   };
 
   return (

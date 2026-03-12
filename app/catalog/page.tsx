@@ -43,9 +43,9 @@ export default function CatalogPage() {
     const fetchInitialCars = async () => {
       await loadCars(1, filters);
     };
-
+  
     fetchInitialCars();
-  });
+  }, [filters]);
 
   useEffect(() => {
     if (cars.length > prevCarsCount && firstNewCardRef.current) {
@@ -57,6 +57,10 @@ export default function CatalogPage() {
   }, [cars, prevCarsCount]);
 
   const handleSearch = (newFilters: FetchCarsParams) => {
+    setCars([]);
+    setPage(1);
+    setPrevCarsCount(0);
+    setTotalPages(0);
     setFilters(newFilters);
   };
 

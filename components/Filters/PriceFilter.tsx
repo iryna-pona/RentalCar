@@ -1,17 +1,17 @@
 import { useState } from "react";
 
 interface PriceFilterProps {
-  onChange: (price: string) => void;
+  onChange: (filters: { rentalPrice?: string }) => void;
 }
 
 export default function PriceFilter({ onChange }: PriceFilterProps) {
     const [selectedPrice, setSelectedPrice] = useState<string>("");
 
     const handleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    const value = event.target.value;
-    setSelectedPrice(value);  // оновлюємо локально
-    onChange(value);          // повідомляємо батьку
-  };
+      const value = event.target.value;
+      setSelectedPrice(value);
+      onChange({ rentalPrice: value });
+    };
 
     return (
       <select value={selectedPrice} onChange={handleChange}>
