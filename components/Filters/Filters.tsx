@@ -13,16 +13,16 @@ interface FiltersProps {
 export default function Filters({ onSearch }: FiltersProps) {
   const [filters, setFilters] = useState<FetchCarsParams>({});
 
-  const handleBrandChange = (brand: string) => {
-    setFilters(prev => ({ ...prev, brand }));
+  const handleBrandChange = (brandFilter: { brand?: string }) => {
+    setFilters(prev => ({ ...prev, ...brandFilter }));
   };
 
-  const handlePriceChange = (rentalPrice: string) => {
-    setFilters(prev => ({ ...prev, rentalPrice }));
+  const handlePriceChange = (priceFilter: { rentalPrice?: string }) => {
+    setFilters(prev => ({ ...prev, ...priceFilter }));
   };
 
-  const handleMileageChange = (minMileage?: string, maxMileage?: string) => {
-    setFilters(prev => ({ ...prev, minMileage, maxMileage }));
+  const handleMileageChange = (mileageFilter: { minMileage?: string; maxMileage?: string }) => {
+    setFilters(prev => ({ ...prev, ...mileageFilter }));
   };
 
   const handleSearchClick = () => {
@@ -30,7 +30,7 @@ export default function Filters({ onSearch }: FiltersProps) {
   };
 
   return (
-    <div>
+    <div className="filtersContainer">
       <BrandFilter onChange={handleBrandChange} />
       <PriceFilter onChange={handlePriceChange} />
       <MileageFilter onChange={handleMileageChange} />

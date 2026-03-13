@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { useState } from "react";
 
 interface PriceFilterProps {
@@ -5,23 +6,47 @@ interface PriceFilterProps {
 }
 
 export default function PriceFilter({ onChange }: PriceFilterProps) {
-    const [selectedPrice, setSelectedPrice] = useState<string>("");
+  const [selectedPrice, setSelectedPrice] = useState("");
+  const [isOpen, setIsOpen] = useState(false);
 
-    const handleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-      const value = event.target.value;
-      setSelectedPrice(value);
-      onChange({ rentalPrice: value });
-    };
+  const prices = ["30", "40", "50", "60", "70", "80"];
 
-    return (
-      <select value={selectedPrice} onChange={handleChange}>
-        <option value="">Choose a price</option>
-        <option value="30">To $30</option>
-        <option value="40">To $40</option>
-        <option value="50">To $50</option>
-        <option value="60">To $60</option>
-        <option value="70">To $70</option>
-        <option value="80">To $80</option>
-      </select>
-    );
+  const handleSelect = (price: string) => {
+    setSelectedPrice(price);
+    onChange({ rentalPrice: price });
+    setIsOpen(false);
+  };
+
+  return (
+    <div className="filterWrapper">
+      <label className="filterLabel">Price / 1 hour</label>
+
+      <div
+        className="filterField"
+        onClick={() => setIsOpen(!isOpen)}
+      >
+        <span>
+          {selectedPrice ? `To $${selectedPrice}` : "Choose a price"}
+        </span>
+
+        <Image
+          className="filterIcon"
+          src={isOpen ? "/filters/above.svg" : "/filters/down.svg"}
+          alt=""
+          width={16}
+          height={16}
+        />
+      </div>
+
+      {isOpen && (
+        <ul className="dropdown">
+          {prices.map((price) => (
+            <li key={price} onClick={() => handleSelect(price)}>
+              To ${price}
+            </li>
+          ))}
+        </ul>
+      )}
+    </div>
+  );
 }

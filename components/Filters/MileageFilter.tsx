@@ -10,7 +10,7 @@ export default function MileageFilter({ onChange }: MileageFilterProps) {
 
   const formatNumber = (value: string, type: "min" | "max") => {
     if (!value) return "";
-    const formatted = Number(value).toLocaleString("en-US");
+    const formatted = Number(value || 0).toLocaleString("en-US");
     return type === "min" ? `From ${formatted}` : `To ${formatted}`;
   };
 
@@ -27,19 +27,23 @@ export default function MileageFilter({ onChange }: MileageFilterProps) {
   };
 
   return (
-    <div>
-      <input
-        type="text"
-        placeholder="From"
-        value={formatNumber(minMileage, "min")}
-        onChange={handleMinChange}
-      />
-      <input
-        type="text"
-        placeholder="To"
-        value={formatNumber(maxMileage, "max")}
-        onChange={handleMaxChange}
-      />
+    <div className="filterWrapper">
+      <label className="filterLabel">Car mileage / km</label>
+
+      <div className="mileageField">
+        <input
+          type="text"
+          placeholder="From"
+          value={minMileage ? formatNumber(minMileage, "min") : ""}
+          onChange={handleMinChange}
+        />
+        <input
+          type="text"
+          placeholder="To"
+          value={maxMileage ? formatNumber(maxMileage, "max") : ""}
+          onChange={handleMaxChange}
+        />
+      </div>
     </div>
   );
 }
