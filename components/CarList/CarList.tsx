@@ -1,27 +1,20 @@
 import CarCard from "../CarCard/CarCard";
 import { Car } from "@/types/car";
-import { RefObject } from "react";
 
 interface Props {
   cars: Car[];
-  firstNewCardRef: RefObject<HTMLDivElement | null>;
 }
 
-export default function CarList({ cars, firstNewCardRef }: Props) {
+export default function CarList({ cars }: Props) {
   if (!cars.length) {
     return <p>No cars found</p>;
   }
 
   return (
-    <div>
-      {cars.map((car, index) => (
-        <div
-          key={car.id}
-          ref={index === cars.length - 1 ? firstNewCardRef : null}
-        >
-          <CarCard car={car} />
-        </div>
+    <>
+      {cars.map((car) => (
+        <CarCard key={car.id} car={car} />
       ))}
-    </div>
+    </>
   );
 }

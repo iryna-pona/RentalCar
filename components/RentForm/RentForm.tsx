@@ -48,26 +48,44 @@ export default function RentForm() {
     }, 1000);
   };
     return (
-        <div>
-            <h2>Book your car now</h2>
-            <p>Stay connected! We are always ready to help you.</p>
-            <Formik initialValues={initialValues} validationSchema={RentFormSchema} onSubmit={handleSubmit}>
-                <Form className={styles.form}>
-                    <Field type="text" name="username" placeholder='Name*' />
-                    <ErrorMessage name="username" component="div" className={styles.error} />
-                    <Field type="email" name="email" placeholder='Email*' />
-                    <ErrorMessage name="email" component="div" className={styles.error} />
-                    <Field type="date" name="bookingDate" placeholder = 'Booking date' />
-                    <Field as="textarea" name="message" id="message" rows={3} placeholder = 'Comment' />
-                    <button
-                        className={styles.buttonRent}
-                        type="submit"
-                    >Send</button>
-                </Form>
-            </Formik>
-            {successMessage && (
-              <div className={styles.successMessage}>{successMessage}</div>
-            )}
-        </div>
-    )
+      <div className={styles.rentFormContainer}>
+        <h2 className={styles.title}>Book your car now</h2>
+
+        <p className={styles.description}>
+          Stay connected! We are always ready to help you.
+        </p>
+
+        <Formik
+          initialValues={initialValues}
+          validationSchema={RentFormSchema}
+          onSubmit={handleSubmit}
+        >
+          {({ isSubmitting }) => (
+            <Form className={styles.form}>
+              <Field type="text" name="username" placeholder="Name*" />
+              <ErrorMessage name="username" component="div" className={styles.error} />
+
+              <Field type="email" name="email" placeholder="Email*" />
+              <ErrorMessage name="email" component="div" className={styles.error} />
+
+              <Field type="date" name="bookingDate" />
+
+              <Field as="textarea" name="message" rows={3} placeholder="Comment" />
+
+              <button
+                className={styles.buttonRent}
+                type="submit"
+                disabled={isSubmitting}
+              >
+                {isSubmitting ? "Sending..." : "Send"}
+              </button>
+            </Form>
+          )}
+        </Formik>
+
+        {successMessage && (
+          <div className={styles.successMessage}>{successMessage}</div>
+        )}
+      </div>
+    );
 }

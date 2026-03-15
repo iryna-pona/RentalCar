@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { useState } from "react";
+import styles from "./Filters.module.css";
 
 interface PriceFilterProps {
   onChange: (filters: { rentalPrice?: string }) => void;
@@ -18,11 +19,11 @@ export default function PriceFilter({ onChange }: PriceFilterProps) {
   };
 
   return (
-    <div className="filterWrapper">
-      <label className="filterLabel">Price / 1 hour</label>
+    <div className={styles.filterWrapper}>
+      <label className={styles.filterLabel}>Price / 1 hour</label>
 
       <div
-        className="filterField"
+        className={styles.filterField}
         onClick={() => setIsOpen(!isOpen)}
       >
         <span>
@@ -39,7 +40,7 @@ export default function PriceFilter({ onChange }: PriceFilterProps) {
       </div>
 
       {isOpen && (
-        <ul className="dropdown">
+        <ul className={styles.dropdown}>
           {prices.map((price) => (
             <li key={price} onClick={() => handleSelect(price)}>
               To ${price}

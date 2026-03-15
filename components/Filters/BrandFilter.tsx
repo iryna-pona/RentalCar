@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { useState, useEffect } from "react";
 import { fetchBrands } from "@/app/api/cars";
+import styles from "./Filters.module.css";
 
 interface BrandFilterProps {
   onChange: (filters: { brand?: string }) => void;
@@ -27,17 +28,17 @@ export default function BrandFilter({ onChange }: BrandFilterProps) {
   };
 
   return (
-    <div className="filterWrapper">
-      <label className="filterLabel">Car brand</label>
+    <div className={styles.filterWrapper}>
+      <label className={styles.filterLabel}>Car brand</label>
 
       <div
-        className="filterField"
+        className={styles.filterField}
         onClick={() => setIsOpen(!isOpen)}
       >
-        <span>{selectedBrand || "Choose a brand"}</span>
+        <span className={styles.filterName}>{selectedBrand || "Choose a brand"}</span>
 
         <Image
-          className="filterIcon"
+          className={styles.filterIcon}
           src={isOpen ? "/filters/above.svg" : "/filters/down.svg"}
           alt=""
           width={16}
@@ -46,7 +47,7 @@ export default function BrandFilter({ onChange }: BrandFilterProps) {
       </div>
 
       {isOpen && (
-        <ul className="dropdown">
+        <ul className={styles.dropdown}>
           {brands.map((brand) => (
             <li key={brand} onClick={() => handleSelect(brand)}>
               {brand}

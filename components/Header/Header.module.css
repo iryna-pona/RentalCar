@@ -2,33 +2,35 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 16px 32px;
-    background-color: #fff;
+    padding: 24px 120px;
+    background-color: var(--badges);
+    border-bottom: 1px solid var(--badges);
     box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
 }
 
 .logo {
     display: flex;
-    gap: 4px;
     align-items: center;
 }
 
 .nav {
     display: flex;
-    gap: 24px;
+    gap: 32px;
 }
 
 .navLink {
     text-decoration: none;
-    color: #000;
+    color: var(--main);
     font-weight: 500;
-    transition: color 0.2s ease;
+    font-size: 16px;
+    text-align: center;
+    transition: color 0.3s ease;
 }
 
 .navLink:hover {
-    color: #0070f3;
+    color: var(--button-hover);
 }
 
 .active {
-    color: #0070f3;
+    color: var(--button-hover);
 }

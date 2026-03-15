@@ -5,6 +5,7 @@ import BrandFilter from "./BrandFilter";
 import PriceFilter from "./PriceFilter";
 import MileageFilter from "./MileageFilter";
 import { FetchCarsParams } from "@/app/api/cars";
+import styles from "./Filters.module.css";
 
 interface FiltersProps {
   onSearch: (filters: FetchCarsParams) => void;
@@ -30,11 +31,11 @@ export default function Filters({ onSearch }: FiltersProps) {
   };
 
   return (
-    <div className="filtersContainer">
+    <div className={styles.filtersContainer}>
       <BrandFilter onChange={handleBrandChange} />
       <PriceFilter onChange={handlePriceChange} />
       <MileageFilter onChange={handleMileageChange} />
-      <button onClick={handleSearchClick}>Search</button>
+      <button className={styles.searchButton} onClick={handleSearchClick}>Search</button>
     </div>
   );
 }

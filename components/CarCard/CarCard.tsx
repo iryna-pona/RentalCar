@@ -62,11 +62,15 @@ export default function CarCard({ car }: CarCardProps) {
         </button>
       </div>
 
-      <h2 className={styles.title}>
-        {car.brand} {car.model}, {car.year}
-      </h2>
+      <div className={styles.header}>
+        <h2 className={styles.title}>
+          {car.brand} {car.model}, {car.year}
+        </h2>
 
-      <h2 className={styles.title}>$ {car.rentalPrice}</h2>
+        <h2 className={styles.price}>
+          $ {car.rentalPrice}
+        </h2>
+      </div>
 
       <p className={styles.info}>
         {city} | {country} | {car.rentalCompany} |

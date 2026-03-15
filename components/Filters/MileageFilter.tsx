@@ -1,4 +1,5 @@
 import { useState } from "react";
+import styles from "./Filters.module.css";
 
 interface MileageFilterProps {
   onChange: (filters: { minMileage?: string; maxMileage?: string }) => void;
@@ -27,10 +28,10 @@ export default function MileageFilter({ onChange }: MileageFilterProps) {
   };
 
   return (
-    <div className="filterWrapper">
-      <label className="filterLabel">Car mileage / km</label>
+    <div className={styles.filterWrapper}>
+      <label className={styles.filterLabel}>Car mileage / km</label>
 
-      <div className="mileageField">
+      <div className={styles.mileageField}>
         <input
           type="text"
           placeholder="From"
